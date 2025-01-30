@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">{{ workout.name }}</h2>
+            <p><strong>Date:</strong> {{ workout.date }}</p>
+            <h5><strong>Total Volume:</strong> {{ total_volume|round(2) }} kg</h5>
+
+            {% if workout.exercises %}
+            <hr class="my-4">
+            <h4 class="text-center">Exercises</h4>
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Exercise</th>
+                        <th>Sets</th>
+                        <th>Reps</th>
+                        <th>Weight</th>
+                        <th>RPE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for exercise in workout.exercises %}
+                    <tr>
+                        <td>{{ exercise.name }}</td>
+                        <td>{{ exercise.sets }}</td>
+                        <td>{{ exercise.reps }}</td>
+                        <td>{{ exercise.weight }} kg</td>
+                        <td>{{ exercise.rpe }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="text-center text-muted">No exercises recorded.</p>
+            {% endif %}
+
+            <a href="{{ url_for('workout_list') }}" class="btn btn-secondary mt-3">Back to List</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
